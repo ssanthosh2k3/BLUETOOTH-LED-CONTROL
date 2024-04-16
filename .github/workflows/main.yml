@@ -1,7 +1,7 @@
-name: Hello-World
+name: hello-world
 on: push
 jobs:
-  santa:  //job name
+  my-job:
     runs-on: ubuntu-latest
     steps:
       - name: my-step
@@ -13,8 +13,8 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 587
           username: ssanthosh2k3@gmail.com
-          password: qqhb obqw skut hnut
+          password: gigachad@4323
           subject: 'Pipeline execution successful'
-          body: 'Your pipeline has executed successfully Guna Bro.'
+          body: 'Your pipeline has executed successfully.'
           to: 'gunavelraj23@gmail.com'
           from: 'ssanthosh2k3@gmail.com'
