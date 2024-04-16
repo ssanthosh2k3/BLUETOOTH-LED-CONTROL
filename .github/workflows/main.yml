@@ -16,4 +16,3 @@ jobs:
           body: 'Your pipeline has executed successfully.'
           to: 'gunavelraj23@gmail.com'
           from: 'ssanthosh2k3@gmail.com'
-          tls: true
