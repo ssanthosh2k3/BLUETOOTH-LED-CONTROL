@@ -15,6 +15,6 @@ jobs:
           username: ssanthosh2k3@gmail.com
           password: qqhb obqw skut hnut
           subject: 'Pipeline execution successful'
-          body: 'Your pipeline has executed successfully please leave gts.'
+          body: 'Your pipeline has executed successfully Guna Bro.'
           to: 'gunavelraj23@gmail.com'
           from: 'ssanthosh2k3@gmail.com'
