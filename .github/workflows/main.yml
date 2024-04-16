@@ -10,6 +10,8 @@ jobs:
         if: ${{ success() }}
         uses: dawidd6/action-send-mail@v2
         with:
+          server_address: smtp.gmail.com
+          server_port: 587
           username: ssanthosh2k3@gmail.com
           password: gigachad@4323
           subject: 'Pipeline execution successful'
