@@ -13,7 +13,7 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 587
           username: ssanthosh2k3@gmail.com
-          password: gigachad@4323
+          password: cstk oxxn umyk kqpl
           subject: 'Pipeline execution successful'
           body: 'Your pipeline has executed successfully.'
           to: 'gunavelraj23@gmail.com'
