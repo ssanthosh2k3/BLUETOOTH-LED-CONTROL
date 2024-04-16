@@ -1,0 +1,22 @@
+'on':
+  workflow_run:
+    workflows:
+      - YourWorkflowName
+    types:
+      - completed
+jobs:
+  send_notification:
+    if: '${{ github.event.workflow_run.conclusion == ''success'' }}'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: '${{ secrets.SMTP_SERVER }}'
+          server_port: '${{ secrets.SMTP_PORT }}'
+          username: '${{ secrets.SMTP_USERNAME }}'
+          password: '${{ secrets.SMTP_PASSWORD }}'
+          subject: Pipeline execution successful
+          body: Your pipeline has executed successfully.
+          to: recipient@example.com
+          from: sender@example.com
