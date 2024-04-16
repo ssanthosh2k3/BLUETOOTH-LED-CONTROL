@@ -10,11 +10,12 @@ jobs:
         if: ${{ success() }}
         uses: dawidd6/action-send-mail@v2
         with:
-          server_address: ${{ secrets.SMTP_SERVER }}
-          server_port: ${{ secrets.SMTP_PORT }}
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ssanthosh2k3@gmail.com
+          password: gigachad@4323
           subject: 'Pipeline execution successful'
           body: 'Your pipeline has executed successfully.'
           to: 'gunavelraj23@gmail.com'
           from: 'ssanthosh2k3@gmail.com'
+          tls: true
