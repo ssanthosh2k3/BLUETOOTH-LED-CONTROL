@@ -2,7 +2,7 @@ name: santa-tech
 on: push
 jobs:
   my-job:
-    runs-on: linux-latest
+    runs-on: suse-latest
     steps:
       - name: 1st-step
         run: echo "Hello World!"
