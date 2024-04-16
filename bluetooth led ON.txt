@@ -1,4 +1,4 @@
-#eedefine ledPin 7
+#define ledPin 7
 int state = 0;
 
 void setup() 
