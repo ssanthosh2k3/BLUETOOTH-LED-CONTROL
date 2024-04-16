@@ -1,7 +1,7 @@
-name: hello-world
+name: santa-tech
 on: push
 jobs:
-  santa:
+  santa:  //job name
     runs-on: ubuntu-latest
     steps:
       - name: my-step
