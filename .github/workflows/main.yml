@@ -1,4 +1,4 @@
-name: santa-tech
+name: hello-world
 on: push
 jobs:
   santa:  //job name
