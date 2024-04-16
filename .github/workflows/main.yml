@@ -2,9 +2,9 @@ name: santa-tech
 on: push
 jobs:
   my-job:
-    runs-on: ubuntu-latest
+    runs-on: linux-latest
     steps:
-      - name: my-step
+      - name: 1st-step
         run: echo "Hello World!"
       - name: Send email notification
         if: ${{ success() }}
