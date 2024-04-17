@@ -1,0 +1,95 @@
+pipeline {
+    agent {
+        label "Jenkins-SL1"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Checkout code from Git
+                    checkout([$class: 'GitSCM',
+                              branches: [[name: 'main']],
+                              userRemoteConfigs: [[url: 'https://github.com/GTSConserve/klover-admin.git/',
+                                                  credentialsId: '7e86d24d-ad15-482c-a6e0-afc97056007c']]]
+                    )
+                }
+            }
+        }
+       
+    stage('Build') {
+            steps {
+                nodejs(cacheLocationStrategy: workspace(), nodeJSInstallationName: 'Klover') {
+                    // Your build steps go here
+                    // For example:
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+        stage('Get Approvel') {
+    steps {
+        script {
+            def userInput = input(
+                message: 'Do you want to proceed this Deployment?',
+                submitterParameter: 'APPROVER',
+                ok: 'Yes',
+                parameters: [
+                    booleanParam(defaultValue: false, description: 'Approve deployment', name: 'APPROVE_DEPLOYMENT')
+                ]
+            )
+            def approver = userInput['APPROVER']
+            if (approver.toLowerCase() == 'vinoth') {
+                echo 'Approved by vinoth'
+            } else {
+                error "Approval not granted by vinoth. Only 'vinoth' is authorized to approve."
+            }
+        }
+    }
+}
+
+        stage('Deploy') {
+            steps {
+                // Deploy your application using sshPublisher
+                sshPublisher(publishers: [sshPublisherDesc(
+                    configName: 'Klover-Admin',
+                    transfers: [sshTransfer(
+                        cleanRemote: false,
+                        excludes: '',
+                        execCommand: '''cd /var/www/html/admin.kloverbuy.com/
+./npm.sh''',
+                        flatten: false,
+                        makeEmptyDirs: false,
+                        noDefaultExcludes: false,
+                        patternSeparator: '[, ]+',
+                        remoteDirectory: '/',
+                        remoteDirectorySDF: false,
+                        removePrefix: '',
+                        sourceFiles: '.next/**, package.json, .env, next.config.js, package-lock.json, next-env.d.ts, .eslintrc.json, dbmgmt/**, tsconfig.json, public/**, src/**'
+                    )],
+                    usePromotionTimestamp: false,
+                    useWorkspaceInPromotion: false,
+                    verbose: false
+                )])
+            }
+        }
+        stage('SendMail') {
+            steps {
+                // Send an email notification using emailext plugin
+                emailext(
+                    attachLog: true,
+                    body: '''Hello Team,
+
+I\'m writing to share the Kloverbuy Production Admin Dashboard website\'s latest build result with you. Please take a moment to review the website by visiting https://admin.kloverbuy.com/
+
+If you need more information about this build, you can download the build log file and review it.
+
+If you encounter any issues, kindly report them by replying to this email, and our Server Team will be happy to assist you.''',
+                    recipientProviders: [buildUser(), requestor(), developers()],
+                    replyTo: 'ajees@gtechwebsolutions.com',
+                    subject: '$DEFAULT_SUBJECT',
+                    to: 'abdulajees.gts@gmail.com, ahamedhussain.gts@gmail.com,  dev@gtechwebsolutions.com ,raghul03.gtech@gmail.com'
+                )
+            }
+        }
+    }
+}
