@@ -1,20 +1,23 @@
-name: santa-tech
-on: push
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your main branch name
+
 jobs:
-  my-job:
-    runs-on: suse-latest
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: 1st-step
-        run: echo "Hello World!"
-      - name: Send email notification
-        if: ${{ success() }}
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ssanthosh2k3@gmail.com
-          password: cstk oxxn umyk kqpl
-          subject: 'Pipeline execution successful'
-          body: 'Your pipeline has executed successfully.'
-          to: 'gunavelraj23@gmail.com'
-          from: 'ssanthosh2k3@gmail.com'
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to production server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ 54.161.109.32 }}  # 54.161.109.32 eplace with your production server's hostname or IP address
+        username: ${{ ubuntu }}  # Replace with your username on the production server
+        key: ${{ PRODUCTION_SSH }}  # Replace with your SSH private key for accessing the production server
+        source: "LED.txt"  # Adjust this to the directory where your HTML files reside
+        target: "/var/www/html"  # Adjust this to the directory on your production server where you want to deploy the website
