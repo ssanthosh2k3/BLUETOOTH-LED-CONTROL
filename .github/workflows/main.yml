@@ -16,7 +16,7 @@ jobs:
     - name: Deploy to production server
       uses: appleboy/scp-action@master
       with:
-        host: ${{ secrets.54.161.109.32 }}  # 54.161.109.32 eplace with your production server's hostname or IP address
+        host: ${{ '54.161.109.32' }}  # 54.161.109.32 eplace with your production server's hostname or IP address
         username: ${{ ubuntu }}  # Replace with your username on the production server
         key: ${{ secrets.PRODUCTION_SSH }}  # Replace with your SSH private key for accessing the production server
         source: "LED.txt"  # Adjust this to the directory where your HTML files reside
