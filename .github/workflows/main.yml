@@ -14,7 +14,7 @@ jobs:
           server_address: smtp.gmail.com 
           server_port: 587  
           username: ssanthosh2k3@gmail.com
-          password: rjwa nkew dppf iici
+          password: updj lldw hfuf nqgv
           subject: 'Pipeline execution successful'
           body: 'Your pipeline has executed successfully please leave gts.'
           to: '2232k02@kgcas.com'
